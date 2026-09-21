@@ -9,6 +9,8 @@ const (
 	min_mutation_range     = -10000
 	max_mutation_range     = 10000
 	mutation_division_coef = 100
+
+	delta = 0.000001
 )
 
 // unit (chromosome) is a float value on X axis
@@ -35,6 +37,6 @@ func (u *Unit) Mutate() {
 		min_mutation_range)/mutation_division_coef
 }
 
-func (u *Unit) Fitness() {
-	// TODO
+func (u *Unit) Fitness(value float32) float32 {
+	return (F(value+delta) - F(value)) / delta
 }
