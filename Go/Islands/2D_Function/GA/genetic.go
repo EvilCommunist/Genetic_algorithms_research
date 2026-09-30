@@ -28,7 +28,7 @@ func InitGA(islands int, population_per_island int, mutation float32, crossover 
 	}
 }
 
-func (ga *GA) InitFirstIsnaders() {
+func (ga *GA) InitFirstIsanders() {
 	wg := sync.WaitGroup{}
 	wg.Add(ga.island_amount)
 	for i := range ga.island_amount {
@@ -43,4 +43,12 @@ func (ga *GA) InitFirstIsnaders() {
 		}(i)
 	}
 	wg.Wait()
+}
+
+func (ga *GA) randomSample(length int, islanders []Unit) {
+	// TODO: random shuffle (see https://github.com/EvilCommunist/Neuro-Simulator/blob/main/kernel/math/heuristicsAlg/geneticalgorithm.cpp#L52)
+}
+
+func (ga *GA) tournament(islanders []Unit) {
+	// TODO: tournament function (see https://github.com/EvilCommunist/Neuro-Simulator/blob/main/kernel/math/heuristicsAlg/geneticalgorithm.cpp#L66)
 }
