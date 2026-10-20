@@ -2,6 +2,7 @@ package ga
 
 import (
 	"math/rand"
+	"slices"
 	"sync"
 )
 
@@ -24,11 +25,11 @@ func InitGA(islands int, population_per_island int, mutation float32, crossover 
 		p_mutation:             mutation,
 		p_crossover:            crossover,
 		center_of_distribution: center,
-		populations:            make([][]Unit, islands),
+		populations:            make([][]Unit, islands), // возможно, вынести в острова?
 	}
 }
 
-func (ga *GA) InitFirstIsanders() {
+func (ga *GA) InitFirstIsanders() { // Переделать на работу с объектами островов???
 	wg := sync.WaitGroup{}
 	wg.Add(ga.island_amount)
 	for i := range ga.island_amount {
@@ -45,10 +46,25 @@ func (ga *GA) InitFirstIsanders() {
 	wg.Wait()
 }
 
-func (ga *GA) randomSample(length int, islanders []Unit) {
-	// TODO: random shuffle (see https://github.com/EvilCommunist/Neuro-Simulator/blob/main/kernel/math/heuristicsAlg/geneticalgorithm.cpp#L52)
+func (ga *GA) randomSample(length int, islanders []Unit) []Unit { // возможно потребуется вынести операцию в остров
+	contestantsAmount := min(3, length)
+	usedIndexes := make([]int, 0)
+	chosen := make([]Unit, 0)
+
+	for range contestantsAmount {
+		index := rand.Intn(length)
+		for !slices.Contains(usedIndexes, index) {
+			index = rand.Intn(length)
+		}
+		chosen = append(chosen, islanders[index])
+		usedIndexes = append(usedIndexes, index)
+	}
+
+	return chosen
 }
 
-func (ga *GA) tournament(islanders []Unit) {
+func (ga *GA) commonTournament(islanders []Unit) {
+	// [THINK] Алгоритм должен работать по островной системе: генетические операции на
+	// протяжении N поколений работают изолированно, периодически пересекаясь
 	// TODO: tournament function (see https://github.com/EvilCommunist/Neuro-Simulator/blob/main/kernel/math/heuristicsAlg/geneticalgorithm.cpp#L66)
 }
