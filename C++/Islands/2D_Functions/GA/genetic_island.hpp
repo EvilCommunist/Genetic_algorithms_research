@@ -19,7 +19,7 @@ private:
     std::uniform_int_distribution<int> dist; 
     int max_iter;
 
-    Unit findBest(std::vector<Unit> sample);
+    Unit findBest(std::vector<Unit>& sample);
     std::vector<Unit> randomChoose();
     std::vector<Unit> tournament();
 
@@ -33,5 +33,5 @@ public:
     /// перемещение, чтобы острова-отправители не теряли качество обитателей.
     /// @return вектор особей - мигранты
     std::vector<Unit> MigrateBest();
-    void AcceptMigrants(std::vector<Unit> migrants);
+    void AcceptMigrants(std::vector<Unit> &migrants);
 };

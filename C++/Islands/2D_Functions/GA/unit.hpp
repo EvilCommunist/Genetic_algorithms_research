@@ -1,11 +1,16 @@
 #pragma once
 #include <random>
+#include <function.hpp>
+
+constexpr auto delta = 0.000001f;
 
 class Unit
 {
 private:
     float point;
     float fitness;
+    
+    inline void calculateFitness() {fitness = (F(this->point + delta) - F(this->point)) / delta;}
 
 public:
     Unit(float value);
