@@ -37,6 +37,6 @@ func (u *Unit) Mutate() {
 		min_mutation_range)/mutation_division_coef
 }
 
-func (u *Unit) Fitness(value float32) float32 {
-	return (F(value+delta) - F(value)) / delta
+func (u *Unit) Fitness() float32 {
+	return (F(u.point+delta) - F(u.point)) / delta
 }
