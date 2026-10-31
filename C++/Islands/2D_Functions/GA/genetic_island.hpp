@@ -16,13 +16,14 @@ private:
     std::mt19937 generator;
     std::vector<Unit> current_population;
     std::vector<Unit> best_history;
+    pair search_borders;
     std::uniform_int_distribution<int> dist; 
     int max_iter;
 
     Unit findBest(std::vector<Unit>& sample);
     std::vector<Unit> randomChoose();
     std::vector<Unit> tournament();
-
+    void checkAndFixBorders(Unit& unit);
 
 public:
     IslandGA(int pop_size, float mutation, float crossover, pair borders, int iterations);

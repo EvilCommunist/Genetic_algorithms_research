@@ -19,7 +19,7 @@ Unit GA::run()
     for (int i = 0; i < islands_amount; ++i)
     {
         islands.emplace_back(island_population_size, p_mutation, p_crossover,
-                             std::make_pair(0.0f, 100.0f), max_iter_per_island);
+                             search_borders, max_iter_per_island);
         islands.back().InitializePopulation();
     }
 

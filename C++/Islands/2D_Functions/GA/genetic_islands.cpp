@@ -6,6 +6,7 @@ constexpr auto migrants_percentage = 0.2f;
 
 IslandGA::IslandGA(int pop_size, float mutation, float crossover,
                    pair borders, int iterations) : generator(std::random_device{}()),
+                                                   search_borders(borders),
                                                    dist(borders.first, borders.second),
                                                    population_size(pop_size),
                                                    p_mutation(mutation),
@@ -18,10 +19,10 @@ void IslandGA::InitializePopulation()
 {
     for (int i = 0; i < population_size; i++)
     {
-        float x_value = static_cast<float>(dist(generator)) / 100.0f;
+        float x_value = static_cast<float>(dist(generator));
         current_population.push_back(Unit(x_value));
     }
-    
+
     best_history.push_back(findBest(current_population));
 }
 
@@ -66,6 +67,14 @@ std::vector<Unit> IslandGA::tournament()
     return selected;
 }
 
+void IslandGA::checkAndFixBorders(Unit &unit)
+{
+    if (unit.Point() < search_borders.first)
+        unit = Unit(search_borders.first);
+    if (unit.Point() > search_borders.second)
+        unit = Unit(search_borders.second);
+}
+
 void IslandGA::Iteration()
 {
     std::vector<Unit> selected = tournament();
@@ -85,8 +94,10 @@ void IslandGA::Iteration()
 
             if (chance_dist(generator) < p_mutation)
                 child1.Mutate(generator);
+            checkAndFixBorders(child1);
             if (chance_dist(generator) < p_mutation)
                 child2.Mutate(generator);
+            checkAndFixBorders(child2);
 
             offspring.push_back(std::move(child1));
             offspring.push_back(std::move(child2));
@@ -98,8 +109,10 @@ void IslandGA::Iteration()
 
             if (chance_dist(generator) < p_mutation)
                 copy1.Mutate(generator);
+            checkAndFixBorders(copy1);
             if (chance_dist(generator) < p_mutation)
                 copy2.Mutate(generator);
+            checkAndFixBorders(copy2);
 
             offspring.push_back(std::move(copy1));
             offspring.push_back(std::move(copy2));
@@ -124,7 +137,10 @@ void IslandGA::Iteration()
                   return a.Fitness() < b.Fitness(); // Минимизация фитнесс функции (F(x) -> 0)
               });
 
-    combined.resize(population_size);
+    if (combined.size() > population_size)
+    {
+        combined.erase(combined.begin() + population_size, combined.end());
+    }
 
     current_population = std::move(combined);
 

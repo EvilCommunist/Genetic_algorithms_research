@@ -9,8 +9,8 @@ class Unit
 private:
     float point;
     float fitness;
-    
-    inline void calculateFitness() {fitness = (F(this->point + delta) - F(this->point)) / delta;}
+
+    inline void calculateFitness() { fitness = abs((F(this->point + delta) - F(this->point)) / delta); }
 
 public:
     Unit(float value);
@@ -24,4 +24,5 @@ public:
     Unit MakeChild(Unit &another_unit, std::mt19937 &gen);
     void Mutate(std::mt19937 &gen);
     inline float Fitness() const { return fitness; }
+    inline float Point() const { return point; }
 };

@@ -1,0 +1,42 @@
+# === Сборочные директории (Build) ===
+build/
+dest/
+out/
+CMakeFiles/
+CMakeScripts/
+
+# === Файлы, генерируемые CMake ===
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# === Скомпилированные бинарники и объектные файлы ===
+*.exe
+*.o
+*.obj
+*.out
+*.a
+*.lib
+*.dll
+*.so
+*.dylib
+
+# === Файлы отладки (Debug) ===
+*.pdb
+*.ilk
+*.idb
+*.dSYM/
+
+# === МинГВ и системный мусор Windows ===
+*.stackdump
+Thumbs.db
+desktop.ini
+
+# === VS Code ===
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
