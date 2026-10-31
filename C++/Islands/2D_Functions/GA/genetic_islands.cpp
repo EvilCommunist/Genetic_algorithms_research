@@ -21,6 +21,8 @@ void IslandGA::InitializePopulation()
         float x_value = static_cast<float>(dist(generator)) / 100.0f;
         current_population.push_back(Unit(x_value));
     }
+    
+    best_history.push_back(findBest(current_population));
 }
 
 Unit IslandGA::findBest(std::vector<Unit> &sample)

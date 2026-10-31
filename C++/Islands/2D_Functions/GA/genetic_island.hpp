@@ -34,4 +34,5 @@ public:
     /// @return вектор особей - мигранты
     std::vector<Unit> MigrateBest();
     void AcceptMigrants(std::vector<Unit> &migrants);
+    inline Unit GetTotalBest() {return findBest(best_history);}
 };
