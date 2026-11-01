@@ -5,6 +5,9 @@ out/
 CMakeFiles/
 CMakeScripts/
 
+# === Директории с копипастом для сравнения эффективности контейнеров ===
+comparasion/
+
 # === Файлы, генерируемые CMake ===
 CMakeCache.txt
 cmake_install.cmake
