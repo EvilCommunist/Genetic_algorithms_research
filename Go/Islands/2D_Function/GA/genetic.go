@@ -1,7 +1,7 @@
 package ga
 
 import (
-	"math/rand"
+	"math/rand/v2"
 	"slices"
 	"sync"
 )
@@ -52,9 +52,9 @@ func (ga *GA) randomSample(length int, islanders []Unit) []Unit { // возмо�
 	chosen := make([]Unit, 0)
 
 	for range contestantsAmount {
-		index := rand.Intn(length)
+		index := rand.IntN(length)
 		for !slices.Contains(usedIndexes, index) {
-			index = rand.Intn(length)
+			index = rand.IntN(length)
 		}
 		chosen = append(chosen, islanders[index])
 		usedIndexes = append(usedIndexes, index)
