@@ -51,3 +51,7 @@ func (ga *GAIsland) tournament() {
 	// протяжении N поколений работают изолированно, периодически пересекаясь
 	// TODO: tournament function (see https://github.com/EvilCommunist/Neuro-Simulator/blob/main/kernel/math/heuristicsAlg/geneticalgorithm.cpp#L66)
 }
+
+func (ga *GAIsland) Iteration() {
+	// TODO: one full iteration
+}
