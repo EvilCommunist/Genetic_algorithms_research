@@ -46,7 +46,7 @@ func (ga *GAIsland) randomSample(length int, islanders []Unit) []Unit {
     return chosen
 }
 
-func (ga *GAIsland) commonTournament(islanders []Unit) {
+func (ga *GAIsland) tournament() {
 	// [THINK] Алгоритм должен работать по островной системе: генетические операции на
 	// протяжении N поколений работают изолированно, периодически пересекаясь
 	// TODO: tournament function (see https://github.com/EvilCommunist/Neuro-Simulator/blob/main/kernel/math/heuristicsAlg/geneticalgorithm.cpp#L66)
