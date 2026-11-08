@@ -20,7 +20,7 @@ private:
     std::uniform_real_distribution<float> dist; 
     int max_iter;
 
-    Unit findBest(std::vector<Unit>& sample);
+    Unit findBest(const std::vector<Unit>& sample) const;
     std::vector<Unit> randomChoose();
     std::vector<Unit> tournament();
     void checkAndFixBorders(Unit& unit);

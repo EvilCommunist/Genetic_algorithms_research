@@ -17,6 +17,9 @@ IslandGA::IslandGA(int pop_size, float mutation, float crossover,
 
 void IslandGA::InitializePopulation()
 {
+    current_population.reserve(population_size);
+    best_history.reserve(max_iter);
+
     for (int i = 0; i < population_size; i++)
     {
         float x_value = static_cast<float>(dist(generator));
@@ -26,7 +29,7 @@ void IslandGA::InitializePopulation()
     best_history.push_back(findBest(current_population));
 }
 
-Unit IslandGA::findBest(std::vector<Unit> &sample)
+Unit IslandGA::findBest(const std::vector<Unit> &sample) const
 {
     Unit best = sample[0];
     for (auto individual : sample)
@@ -128,7 +131,7 @@ void IslandGA::Iteration()
         offspring.push_back(std::move(last_child));
     }
 
-    std::vector<Unit> combined = current_population;
+    std::vector<Unit> combined = std::move(current_population);
     combined.reserve(current_population.size() * 2);
     combined.insert(combined.end(),
                     std::make_move_iterator(offspring.begin()),
