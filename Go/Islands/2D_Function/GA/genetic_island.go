@@ -32,7 +32,7 @@ func InitGA(islands int, population int, mutation float32,
 func (ga *GAIsland) InitFirstIsanders() {
 	ga.population = make([]Unit, ga.population_size)
 	for i := range ga.population_size {
-		value := rand.Float32()
+		value := ga.left_border + rand.Float32()*(ga.right_border-ga.left_border)
 		ga.population[i] = *InitUnit(value)
 	}
 }
