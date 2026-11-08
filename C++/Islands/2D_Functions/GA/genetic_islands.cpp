@@ -59,6 +59,7 @@ std::vector<Unit> IslandGA::randomChoose()
 std::vector<Unit> IslandGA::tournament()
 {
     std::vector<Unit> selected{};
+    selected.reserve(current_population.size());
     for (size_t i = 0; i < current_population.size(); i++)
     {
         std::vector<Unit> contestants = randomChoose();
@@ -128,6 +129,7 @@ void IslandGA::Iteration()
     }
 
     std::vector<Unit> combined = current_population;
+    combined.reserve(current_population.size() * 2);
     combined.insert(combined.end(),
                     std::make_move_iterator(offspring.begin()),
                     std::make_move_iterator(offspring.end()));

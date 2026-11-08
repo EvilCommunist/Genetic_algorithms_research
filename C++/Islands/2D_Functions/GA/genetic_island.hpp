@@ -17,7 +17,7 @@ private:
     std::vector<Unit> current_population;
     std::vector<Unit> best_history;
     pair search_borders;
-    std::uniform_int_distribution<int> dist; 
+    std::uniform_real_distribution<float> dist; 
     int max_iter;
 
     Unit findBest(std::vector<Unit>& sample);
