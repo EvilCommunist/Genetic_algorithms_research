@@ -10,7 +10,8 @@ private:
     float point;
     float fitness;
 
-    inline void calculateFitness() { fitness = abs((F(this->point + delta) - F(this->point)) / delta); }
+    inline void calculateFitness() { fitness = std::abs((F(this->point + delta) 
+        - F(this->point)) / delta); }
 
 public:
     Unit(float value);

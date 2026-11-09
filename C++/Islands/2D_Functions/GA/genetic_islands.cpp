@@ -42,20 +42,52 @@ Unit IslandGA::findBest(const std::vector<Unit> &sample) const
     return best;
 }
 
+// std::vector<Unit> IslandGA::randomChoose()
+// {
+//     int contestants_amount = std::min(3, static_cast<int>(current_population.size()));
+
+//     std::vector<Unit> chosen;
+//     chosen.reserve(contestants_amount);
+
+//     std::sample(
+//         current_population.begin(),
+//         current_population.end(),
+//         std::back_inserter(chosen),
+//         contestants_amount,
+//         generator);
+
+//     return chosen;
+// }
+
 std::vector<Unit> IslandGA::randomChoose()
 {
-    int contestants_amount = std::min(3, static_cast<int>(current_population.size()));
-
+    int k = std::min(3, static_cast<int>(current_population.size()));
     std::vector<Unit> chosen;
-    chosen.reserve(contestants_amount);
+    chosen.reserve(k);
 
-    std::sample(
-        current_population.begin(),
-        current_population.end(),
-        std::back_inserter(chosen),
-        contestants_amount,
-        generator);
-
+    std::uniform_int_distribution<size_t> dist(0, current_population.size() - 1);
+    std::vector<size_t> used;
+    used.reserve(k);
+    
+    while (chosen.size() < k)
+    {
+        size_t idx = dist(generator);
+        bool is_duplicate = false;
+ 
+        for (size_t u : used)
+        {
+            if (u == idx)
+            {
+                is_duplicate = true;
+                break;
+            }
+        }  
+        if (!is_duplicate)
+        {
+            used.push_back(idx);
+            chosen.push_back(current_population[idx]);
+        }
+    }
     return chosen;
 }
 

@@ -51,12 +51,39 @@ func (ga *GAIsland) GetTotalBest() Unit {
 	return ga.findBest(ga.best_units)
 }
 
+// func (ga *GAIsland) randomSample(length int, islanders []Unit) []Unit {
+// 	contestantsAmount := min(3, length)
+// 	perm := rand.Perm(length)
+// 	chosen := make([]Unit, contestantsAmount)
+// 	for i := 0; i < contestantsAmount; i++ {
+// 		chosen[i] = islanders[perm[i]]
+// 	}
+// 	return chosen
+// }
+
 func (ga *GAIsland) randomSample(length int, islanders []Unit) []Unit {
-	contestantsAmount := min(3, length)
-	perm := rand.Perm(length)
-	chosen := make([]Unit, contestantsAmount)
-	for i := 0; i < contestantsAmount; i++ {
-		chosen[i] = islanders[perm[i]]
+	n := len(islanders)
+	k := min(length, n)
+	chosen := make([]Unit, k)
+	used := make([]int, 0, k)
+
+	for i := 0; i < k; i++ {
+		var idx int
+		for {
+			idx = rand.IntN(n)
+			found := false
+			for _, u := range used {
+				if u == idx {
+					found = true
+					break
+				}
+			}
+			if !found {
+				used = append(used, idx)
+				break
+			}
+		}
+		chosen[i] = islanders[idx]
 	}
 	return chosen
 }
